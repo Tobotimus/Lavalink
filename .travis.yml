@@ -12,7 +12,10 @@ cache:
   - "$HOME/.gradle/wrapper/"
 jdk: openjdk10
 script:
-- "./gradlew bootJar"
+- ls
+- ls LavalinkServer
+- ls LavalinkServer/build
+- ls LavalinkServer/build/libs
 
 deploy:
   provider: releases
