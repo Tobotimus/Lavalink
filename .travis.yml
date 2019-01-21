@@ -24,4 +24,4 @@ deploy:
   file: LavalinkServer/build/libs/Lavalink-osx.jar
   on:
     repo: Tobotimus/Lavalink
-    branch: fork
+    tags: true
