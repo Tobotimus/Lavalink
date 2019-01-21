@@ -1,32 +1,25 @@
 language: java
-
-addons:
-  sonarcloud:
-    organization: "fredboat"
+os: osx
 
 env:
   global:
     - BUILD_NUMBER: "$TRAVIS_BUILD_NUMBER"
 
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - "$HOME/.m2"
-    - "$HOME/.gradle"
-    - ".gradle/wrapper"
-    - ".gradle/caches"
-    - "$HOME/.sonar/cache"
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
 
 stages:
-  - sonar
+  - bootJar
 
 jobs:
   fast_finish: true
   include:
-    - stage: sonar
+    - stage: bootJar
       jdk: openjdk10
-      if: env(TRAVIS_SECURE_ENV_VARS) = true
-      before_script:
-        #for full sonar cloud blame information
-        - "git fetch --unshallow"
       script:
-        - "./gradlew sonarqube -PincludeAnalysis"
+        - "./gradlew bootJar"
